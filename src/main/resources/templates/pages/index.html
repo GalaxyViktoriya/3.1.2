@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<h1>Все пользователи</h1>
+<table th:border="1" th:cellpadding="5">
+    <tr>
+        <th>Id</th>
+        <th>Имя</th>
+        <th>Фамилия</th>
+        <th>Email</th>
+    </tr>
+    <tr th:each="user : ${users}">
+        <td th:utext="${user.getId()}">Id</td>
+        <td th:utext="${user.getFirstName()}">Имя</td>
+        <td th:utext="${user.getLastName()}">Фамилия</td>
+        <td th:utext="${user.getEmail()}">Email</td>
+        <td>
+            <form th:method="GET" th:action="@{/change}" th:object="${user}">
+                <input type="hidden" name="id" th:value="${user.id}">
+                <button type="submit">Изменить</button>
+            </form>
+        </td>
+        <td>
+            <form th:method="DELETE" th:action="@{/deleteUser}">
+                <input type="hidden" name="id" th:value="${user.id}">
+                <button type="submit">Удалить</button>
+            </form>
+        </td>
+    </tr>
+</table>
+<label>
+    <input th:type="button" value="Добавить"
+           onclick="window.location.href='newUser'"/>
+</label>
+</body>
+</html>
